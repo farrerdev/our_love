@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:our_love/common/theme/app_colors.dart';
+import 'package:our_love/modules/root/presentation/blocs/root_cubit.dart';
 
 const kBorderRadius = BorderRadius.vertical(top: Radius.circular(16));
 const kBlurRadius = 25.0;
@@ -24,20 +27,27 @@ class AppBottomBar extends StatefulWidget {
 class _AppBottomBarState extends State<AppBottomBar> {
   @override
   Widget build(BuildContext context) {
-    return BottomNavigationBar(
-      backgroundColor: Colors.transparent,
-      items: [
-        _buildBottomNavBarItem(
-          iconSelected: Icons.home_filled,
-          iconDefault: Icons.home_outlined,
-          tab: BottomMenuEnum.home,
-        ),
-        _buildBottomNavBarItem(
-          iconSelected: Icons.person,
-          iconDefault: Icons.person_outline,
-          tab: BottomMenuEnum.profile,
-        ),
-      ],
+    return BlocBuilder<RootCubit, RootState>(
+      builder: (context, state) {
+        return BottomNavigationBar(
+          onTap: context.read<RootCubit>().onPageChanged,
+          backgroundColor: ColorStyles.orange1,
+          elevation: 1,
+          currentIndex: state.currentTab,
+          items: [
+            _buildBottomNavBarItem(
+              iconSelected: Icons.home_filled,
+              iconDefault: Icons.home_outlined,
+              tab: BottomMenuEnum.home,
+            ),
+            _buildBottomNavBarItem(
+              iconSelected: Icons.view_timeline_rounded,
+              iconDefault: Icons.view_timeline_outlined,
+              tab: BottomMenuEnum.profile,
+            ),
+          ],
+        );
+      },
     );
   }
 
@@ -61,10 +71,13 @@ class _AppBottomBarState extends State<AppBottomBar> {
   }
 
   Widget _buildIcon(bool isSelected, IconData iconData) {
-    return Icon(
-      iconData,
-      color: Colors.white,
-      size: 24,
+    return Padding(
+      padding: const EdgeInsets.only(top: 4.0),
+      child: Icon(
+        iconData,
+        color: ColorStyles.orange9,
+        size: 24,
+      ),
     );
   }
 }

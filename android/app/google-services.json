@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "515783356651",
+    "project_id": "our-love-9cea3",
+    "storage_bucket": "our-love-9cea3.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:515783356651:android:abfa2189a29befde038eae",
+        "android_client_info": {
+          "package_name": "com.ourlove.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDjjLdP_gaBuK_I5h0ZtxvXYVwh7WdSI8E"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

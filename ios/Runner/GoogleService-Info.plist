@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>API_KEY</key>
+	<string>AIzaSyCFBNh3Tm0JvahWcgD_q6oki8x-Fz1y-Os</string>
+	<key>GCM_SENDER_ID</key>
+	<string>515783356651</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.farrer.ourLove</string>
+	<key>PROJECT_ID</key>
+	<string>our-love-9cea3</string>
+	<key>STORAGE_BUCKET</key>
+	<string>our-love-9cea3.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:515783356651:ios:06bf46b1d1733ce5038eae</string>
+</dict>
+</plist>

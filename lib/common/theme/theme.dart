@@ -1,6 +1,5 @@
 import 'package:our_love/common/theme/app_colors.dart';
 import 'package:our_love/common/theme/app_texts.dart';
-import 'package:our_love/common/theme/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -8,11 +7,11 @@ import 'package:google_fonts/google_fonts.dart';
 ThemeData lightThemeData(BuildContext context) {
   return ThemeData.dark().copyWith(
     brightness: Brightness.dark,
-    primaryColor: kPrimaryColor,
+    primaryColor: ColorStyles.orange9,
     scaffoldBackgroundColor: Colors.transparent,
     colorScheme: const ColorScheme.light(
-      primary: ColorStyles.black10,
-      secondary: ColorStyles.blue2,
+      primary: ColorStyles.orange9,
+      secondary: ColorStyles.orange2,
       error: ColorStyles.red4,
     ),
     textSelectionTheme: const TextSelectionThemeData(
@@ -22,24 +21,25 @@ ThemeData lightThemeData(BuildContext context) {
     ),
     canvasColor: Colors.transparent,
     focusColor: Colors.transparent,
-    iconTheme: const IconThemeData(color: ColorStyles.white, size: 20),
+    iconTheme: const IconThemeData(color: ColorStyles.orange9, size: 20),
     appBarTheme: AppBarTheme(
       systemOverlayStyle: SystemUiOverlayStyle.dark,
-      iconTheme: const IconThemeData(color: ColorStyles.black7, size: 20),
+      iconTheme: const IconThemeData(color: ColorStyles.orange9, size: 20),
       backgroundColor: Colors.transparent,
       centerTitle: false,
       elevation: 0,
       actionsIconTheme:
-          const IconThemeData(color: ColorStyles.black7, size: 20),
-      shadowColor: ColorStyles.black2.withOpacity(.3),
+          const IconThemeData(color: ColorStyles.orange9, size: 20),
+      shadowColor: Colors.transparent,
+      surfaceTintColor:  Colors.transparent,
       titleTextStyle:
-          TextStyles.mobileSubtitle1.copyWith(color: ColorStyles.black10),
+          TextStyles.mobileSubtitle1.copyWith(color: ColorStyles.orange9),
     ),
-    textTheme: GoogleFonts.interTextTheme(
+    textTheme: GoogleFonts.balooBhaijaan2TextTheme(
       Theme.of(context).textTheme.apply(
-            bodyColor: Colors.white,
-            displayColor: Colors.white,
-            decorationColor: Colors.white,
+            bodyColor: ColorStyles.orange9,
+            displayColor: ColorStyles.orange9,
+            decorationColor:ColorStyles.orange9,
           ),
     ),
   );
