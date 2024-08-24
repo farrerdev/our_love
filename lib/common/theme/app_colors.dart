@@ -112,4 +112,12 @@ class ColorStyles {
   static const Color orange9 = Color(0xff79320A);
 
   static const Color exclusiveSectionGray = Color(0xffF7F8FB);
+  //
+  static const Color pink7 = Colors.pink;
+  static const Color pink4= Color(0xFFEC407A);
+  static const Color pink3 = Color(0xFFF06292);
+  static const Color pink1 = Color(0xFFF8BBD0);
+  //
+  static const Color pinkAccent7 = Colors.pinkAccent;
+  static const Color pinkAccent1 = Color(0xFFFF80AB);
 }
