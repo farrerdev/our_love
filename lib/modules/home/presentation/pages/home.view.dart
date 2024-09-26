@@ -1,14 +1,18 @@
 import 'package:flutter/cupertino.dart';
-import 'package:hive/hive.dart';
 import 'package:intl/intl.dart' as intl;
-import 'package:our_love/common/extensions/message_dialog.extension.dart';
+import 'package:our_love/common/extensions/context.extension.dart';
 import 'package:our_love/common/theme/app_colors.dart';
 import 'package:our_love/common/theme/app_texts.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:our_love/common/widgets/file_picker_action_sheet.widget.dart';
+import 'package:our_love/common/widgets/rounded_button.widget.dart';
+import 'package:our_love/common/widgets/spacer.dart';
 import 'package:our_love/generated/assets.gen.dart';
 import 'package:our_love/modules/home/presentation/blocs/home/home_bloc.dart';
 import 'package:our_love/modules/memories/presentation/pages/memories.view.dart';
+import 'package:our_love/modules/root/presentation/blocs/root_cubit.dart';
+import 'package:our_love/modules/root/presentation/widgets/app_bottom_navigation_bar.widget.dart';
 import 'package:syncfusion_flutter_core/theme.dart';
 import 'package:syncfusion_flutter_sliders/sliders.dart';
 
@@ -22,6 +26,7 @@ extension StatefulExtension on State {
 }
 
 const _bottomHeight = 300.0;
+final defaultPath = Assets.images.libraryBg.path;
 
 class HomeView extends StatefulWidget {
   const HomeView({super.key});
@@ -32,7 +37,7 @@ class HomeView extends StatefulWidget {
 
 class _HomeViewState extends State<HomeView> {
   var pageController = PageController();
-  final firstDate = DateTime(2024, 8, 24);
+  final firstDate = DateTime(2020, 2, 20);
 
   int get totalDays => DateTime.now().difference(firstDate).inDays + 1;
 
@@ -42,6 +47,17 @@ class _HomeViewState extends State<HomeView> {
   }
 
   double get nextMaxDays => (totalDays / 1000 + 1).toInt().toDouble() * 1000;
+
+  bool isEditing = false;
+
+  bool get isEdited =>
+      avatarPath1 != defaultPath ||
+      avatarPath2 != defaultPath ||
+      bgImagePath != defaultPath;
+
+  String avatarPath1 = defaultPath;
+  String avatarPath2 = defaultPath;
+  String bgImagePath = defaultPath;
 
   @override
   Widget build(BuildContext context) {
@@ -78,83 +94,102 @@ class _HomeViewState extends State<HomeView> {
 
   Widget _buildBgImage(BuildContext context) {
     return Stack(
+      fit: StackFit.expand,
       children: [
         Image.asset(
-          Assets.images.libraryBg.path,
-          width: context.width,
+          bgImagePath,
           fit: BoxFit.cover,
         ),
-        Positioned(
+        Positioned.fill(
           child: SafeArea(
             child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                Container(
-                  height: 32,
-                  width: 32,
-                  margin: const EdgeInsets.all(16),
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: ColorStyles.orange2.withOpacity(.1),
-                  ),
-                  child: MenuAnchor(
-                    builder: (context, controller, child) {
-                      return IconButton(
-                        icon: const Icon(
-                          Icons.edit_note_outlined,
-                          color: ColorStyles.pinkAccent7,
-                        ),
-                        onPressed: () {
-                          controller.isOpen
-                              ? controller.close()
-                              : controller.open();
-                        },
-                      );
+                if (isEditing)
+                  AppIconButton(
+                    margin: const EdgeInsets.all(16).copyWith(left: 0),
+                    icon: Icons.clear,
+                    onPressed: () {
+                      if (isEdited) {
+                        context.showConfirmEditedFormDialog(
+                          onConfirm: _onSwitchEditMode,
+                        );
+                      } else {
+                        _onSwitchEditMode();
+                      }
                     },
-                    menuChildren: [
-                      MenuItemButton(
-                        child: Text(
-                          "Change background image",
-                          style: TextStyles.mobileSMedium.copyWith(
-                            color: ColorStyles.orange9,
-                          ),
-                        ),
-                        onPressed: () {},
-                      ),
-                      MenuItemButton(
-                        child: Text(
-                          "Change first date",
-                          style: TextStyles.mobileSMedium.copyWith(
-                            color: ColorStyles.orange9,
-                          ),
-                        ),
-                        onPressed: () {},
-                      ),
-                    ],
                   ),
+                AppIconButton(
+                  margin: const EdgeInsets.all(16).copyWith(left: 0),
+                  icon: isEditing ? Icons.check : Icons.edit,
+                  onPressed: () {
+                    _onSwitchEditMode();
+                  },
                 ),
               ],
             ),
           ),
-        )
+        ),
+        if (isEditing)
+          Positioned.fill(
+            child: Center(
+              child: AppIconButton(
+                icon: Icons.edit,
+                onPressed: () {
+                  context.showBottomSheet(
+                    ImagePickerActionSheet(
+                      onPicked: (path) {
+                        bgImagePath = path;
+                        rebuild();
+                      },
+                    ),
+                  );
+                },
+              ),
+            ),
+          )
       ],
     );
   }
 
+  void _onSwitchEditMode() {
+    isEditing = !isEditing;
+    rebuild();
+  }
+
   Widget _buildAvatars() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
+    return Column(
       children: [
-        UserAvatar(url: Assets.images.libraryBg.path),
-        const SizedBox(
-          width: 50,
-          child: Icon(
-            CupertinoIcons.heart_solid,
-            color: ColorStyles.pinkAccent7,
-            size: 30,
-          ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            UserAvatar(
+              url: avatarPath1,
+              isEditing: isEditing,
+              onPicked: (path) {
+                avatarPath1 = path;
+                rebuild();
+              },
+            ),
+            const SizedBox(
+              width: 50,
+              child: Icon(
+                CupertinoIcons.heart_solid,
+                color: ColorStyles.pinkAccent7,
+                size: 30,
+              ),
+            ),
+            UserAvatar(
+              url: avatarPath2,
+              isEditing: isEditing,
+              onPicked: (path) {
+                avatarPath2 = path;
+                rebuild();
+              },
+            ),
+          ],
         ),
-        UserAvatar(url: Assets.images.libraryBg.path),
       ],
     );
   }
@@ -172,11 +207,11 @@ class _HomeViewState extends State<HomeView> {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
+          const VSpacer(25),
           Text(
             "Love Days",
             style: TextStyles.mobileHeading5.copyWith(color: ColorStyles.pink7),
           ),
-          const SizedBox(height: 15),
           Text(
             totalDaysContent,
             style: TextStyles.mobileHeading2.copyWith(color: ColorStyles.pink7),
@@ -223,13 +258,52 @@ class _HomeViewState extends State<HomeView> {
               fontStyle: FontStyle.italic,
             ),
           ),
+          const VSpacer(20),
+          RoundedButton(
+            type: ButtonType.primary,
+            labelText: "See memories",
+            onPressed: () => context.read<RootCubit>().onPageChanged(
+                  BottomMenuEnum.memories,
+                ),
+          )
         ],
       ),
     );
   }
+}
 
-  void _onEditIconPressed() {
-    rebuild();
+class AppIconButton extends StatelessWidget {
+  const AppIconButton({
+    super.key,
+    required this.icon,
+    required this.onPressed,
+    this.margin,
+  });
+
+  final IconData icon;
+  final VoidCallback onPressed;
+  final EdgeInsetsGeometry? margin;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 36,
+      width: 36,
+      margin: margin,
+      decoration: BoxDecoration(
+        shape: BoxShape.circle,
+        color: ColorStyles.orange2.withOpacity(.1),
+      ),
+      alignment: Alignment.center,
+      child: IconButton(
+        padding: EdgeInsets.zero,
+        icon: Icon(
+          icon,
+          color: ColorStyles.pinkAccent7,
+        ),
+        onPressed: onPressed,
+      ),
+    );
   }
 }
 
@@ -237,21 +311,44 @@ class UserAvatar extends StatelessWidget {
   const UserAvatar({
     super.key,
     required this.url,
+    required this.isEditing,
+    required this.onPicked,
   });
 
   final String url;
+  final bool isEditing;
+  final Function(String path) onPicked;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 70,
-      width: 70,
-      decoration: BoxDecoration(
-        border: Border.all(
-            color: ColorStyles.pinkAccent1.withOpacity(.5), width: 2),
-        shape: BoxShape.circle,
-        image: DecorationImage(image: AssetImage(url), fit: BoxFit.cover),
-      ),
+    return Stack(
+      children: [
+        Container(
+          height: 70,
+          width: 70,
+          decoration: BoxDecoration(
+            border: Border.all(
+                color: ColorStyles.pinkAccent1.withOpacity(.5), width: 2),
+            shape: BoxShape.circle,
+            image: DecorationImage(image: AssetImage(url), fit: BoxFit.cover),
+          ),
+        ),
+        if (isEditing)
+          Positioned.fill(
+            child: Center(
+              child: AppIconButton(
+                icon: Icons.edit,
+                onPressed: () {
+                  context.showBottomSheet(
+                    ImagePickerActionSheet(
+                      onPicked: onPicked,
+                    ),
+                  );
+                },
+              ),
+            ),
+          )
+      ],
     );
   }
 }

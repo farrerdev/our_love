@@ -45,5 +45,13 @@
 	<true/>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
+	<key>NSMicrophoneUsageDescription</key>
+    <string>This app requires to access your microphone so that you can upload audio file to your tasks.</string>
+    <key>NSMotionUsageDescription</key>
+    <string>This permission is not needed by the app, but it is required by an underlying API. If you see this dialog, contact us.</string>
+    <key>NSPhotoLibraryUsageDescription</key>
+    <string>This app requires to access your camera roll so that you can upload images and videos to your tasks.</string>
+    <key>NSCameraUsageDescription</key>
+	<string>This app requires access to your camera to let you add pictures to your profile.</string>
 </dict>
 </plist>

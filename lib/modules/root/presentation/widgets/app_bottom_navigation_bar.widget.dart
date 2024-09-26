@@ -12,7 +12,7 @@ class BottomMenuEnum {
   BottomMenuEnum._();
 
   static const int home = 0;
-  static const int profile = 1;
+  static const int memories = 1;
 }
 
 class AppBottomBar extends StatefulWidget {
@@ -43,7 +43,7 @@ class _AppBottomBarState extends State<AppBottomBar> {
             _buildBottomNavBarItem(
               iconSelected: Icons.view_timeline_rounded,
               iconDefault: Icons.view_timeline_outlined,
-              tab: BottomMenuEnum.profile,
+              tab: BottomMenuEnum.memories,
             ),
           ],
         );

@@ -1,4 +1,4 @@
-import 'package:our_love/common/extensions/message_dialog.extension.dart';
+import 'package:our_love/common/extensions/context.extension.dart';
 import 'package:our_love/common/theme/app_colors.dart';
 import 'package:our_love/common/theme/app_texts.dart';
 import 'package:our_love/common/widgets/app_input.widget.dart';
@@ -120,6 +120,7 @@ class _LoginViewState extends State<LoginView> {
       buildWhen: (previous, current) => false,
       builder: (BuildContext context, state) {
         return RoundedButton(
+          type: ButtonType.primary,
           backgroundColor: ColorStyles.blackDeep,
           labelText: "Login",
           borderColor: ColorStyles.black5,

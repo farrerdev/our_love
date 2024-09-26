@@ -60,6 +60,8 @@ dependencies:
   syncfusion_flutter_core: 22.2.12
   cloud_firestore: ^4.14.0
   firebase_core: ^2.24.2
+  file_picker: 8.0.7
+  image_picker: 1.1.2
 
 dev_dependencies:
   flutter_test:

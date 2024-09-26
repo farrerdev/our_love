@@ -307,6 +307,7 @@ class _AppDatePickerState extends State<AppDatePicker> {
           ),
         const HSpacer(12),
         RoundedButton(
+          type: ButtonType.primary,
           disabled: _endDate == widget.initEndDate
               ? widget.isPickRange
                   ? _startDate == widget.initStartDate
