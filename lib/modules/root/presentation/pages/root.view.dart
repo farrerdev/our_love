@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:our_love/common/theme/app_colors.dart';
 import 'package:our_love/common/theme/constants.dart';
 import 'package:our_love/modules/home/presentation/pages/home.view.dart';
 import 'package:our_love/modules/memories//presentation/pages/memories.view.dart';
@@ -14,7 +15,7 @@ class RootView extends StatelessWidget {
     return BlocProvider(
       create: (context) => RootCubit(),
       child: const Scaffold(
-        backgroundColor: Colors.transparent,
+        backgroundColor: ColorStyles.orange1,
         body: _Body(),
         bottomNavigationBar: AppBottomBar(),
       ),

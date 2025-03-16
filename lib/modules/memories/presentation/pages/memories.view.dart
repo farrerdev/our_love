@@ -1,14 +1,19 @@
 import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:our_love/common/extensions/datetime.extension.dart';
 import 'package:our_love/common/theme/app_colors.dart';
 import 'package:our_love/common/theme/app_texts.dart';
 import 'package:flutter/material.dart';
+import 'package:our_love/common/widgets/app_error.widget.dart';
+import 'package:our_love/common/widgets/app_loading_indicator.widget.dart';
 import 'package:our_love/common/widgets/spacer.dart';
+import 'package:our_love/modules/memories/presentation/blocs/memories_cubit.dart';
+import 'package:our_love/modules/memories/presentation/pages/submit_memory.view.dart';
 
-const boxDecoration = BoxDecoration(
+const bgDecoration = BoxDecoration(
   gradient: LinearGradient(
     colors: [
       ColorStyles.orange1,
@@ -19,14 +24,77 @@ const boxDecoration = BoxDecoration(
 const connectorColor = ColorStyles.orange8;
 const connectorWidth = 1.5;
 
-class MemoriesView extends StatefulWidget {
+class MemoriesView extends StatelessWidget {
   const MemoriesView({super.key});
 
   @override
-  State<MemoriesView> createState() => _MemoriesViewState();
+  Widget build(BuildContext context) {
+    return Stack(
+      fit: StackFit.expand,
+      children: [
+        const DecoratedBox(
+          decoration: bgDecoration,
+        ),
+        Positioned(
+          child: Scaffold(
+            appBar: AppBar(
+              title: const Text("Memories timeline"),
+            ),
+            body: _BodyByState(),
+            floatingActionButton: FloatingActionButton(
+              onPressed: () => showCupertinoSheet(
+                context: context,
+                pageBuilder: (context) => const AddMemorySheet(),
+              ),
+              shape: const CircleBorder(),
+              mini: true,
+              backgroundColor: ColorStyles.orange2,
+              child: const Icon(
+                CupertinoIcons.add,
+                color: ColorStyles.orange9,
+              ),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
 }
 
-class _MemoriesViewState extends State<MemoriesView> {
+class _BodyByState extends StatelessWidget {
+  const _BodyByState();
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocProvider(
+      create: (context) => MemoriesCubit()..getMemories(),
+      child: BlocBuilder<MemoriesCubit, MemoriesState>(
+        builder: (context, state) {
+          if (state is MemoriesLoading) {
+            return const AppLoadingIndicator();
+          }
+          if (state is MemoriesError) {
+            return AppErrorWidget();
+          }
+          if (state is MemoriesLoaded) {
+            return _MemoriesBody();
+          }
+          return const SizedBox();
+        },
+      ),
+    );
+  }
+}
+
+class _MemoriesBody extends StatefulWidget {
+  const _MemoriesBody();
+
+  @override
+  State<_MemoriesBody> createState() => _MemoriesBodyState();
+}
+
+class _MemoriesBodyState extends State<_MemoriesBody> {
   final scrollController = ScrollController();
 
   @override
@@ -50,142 +118,117 @@ class _MemoriesViewState extends State<MemoriesView> {
       },
     );
 
-    return Stack(
-      fit: StackFit.expand,
-      children: [
-        const DecoratedBox(
-          decoration: boxDecoration,
+    return CupertinoScrollbar(
+      controller: scrollController,
+      child: CustomScrollView(
+        controller: scrollController,
+        slivers: List.generate(
+          yearItems.length,
+          (index) {
+            final yearItem = yearItems[index];
+            return _buildYear(yearItem);
+          },
         ),
-        Positioned(
-          child: Scaffold(
-            appBar: AppBar(
-              title: const Text("Memories timeline"),
-            ),
-            body: CupertinoScrollbar(
-              controller: scrollController,
-              child: CustomScrollView(
-                controller: scrollController,
-                slivers: List.generate(
-                  yearItems.length,
-                  (index) {
-                    final yearItem = yearItems[index];
-                    return _buildYear(yearItem);
-                  },
+      ),
+    );
+  }
+
+  Widget _buildYear(YearItem yearItem) {
+    return SliverMainAxisGroup(
+      slivers: [
+        SliverPersistentHeader(
+          pinned: true,
+          delegate: AppSliverPersistentHeaderDelegate(
+            minHeight: 40,
+            maxHeight: 40,
+            child: Container(
+              decoration: bgDecoration,
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: Text(
+                yearItem.year,
+                style: TextStyles.mobileHeading5.copyWith(
+                  fontWeight: FontWeight.w800,
                 ),
               ),
             ),
-            floatingActionButton: FloatingActionButton(
-              onPressed: () {},
-              shape: const CircleBorder(),
-              mini: true,
-              backgroundColor: ColorStyles.orange2,
-              child: const Icon(
-                CupertinoIcons.add,
-                color: ColorStyles.orange9,
-              ),
-            ),
           ),
         ),
+        const SliverToBoxAdapter(
+          child: VSpacer(12),
+        ),
+        SliverPadding(
+          padding: const EdgeInsets.only(bottom: 20),
+          sliver: SliverList.builder(
+            itemCount: yearItem.cards.length,
+            itemBuilder: (context, index) {
+              final cardItem = yearItem.cards[index];
+              final preIndex = max(index - 1, 0);
+              final preItem = yearItem.cards[preIndex];
+              final nextIndex = min(index + 1, yearItem.cards.length - 1);
+              final nextItem = yearItem.cards[nextIndex];
+              final isFirst =
+                  index == 0 ? true : !cardItem.date.isSameDate(preItem.date);
+              final isLast = index == yearItem.cards.length - 1
+                  ? true
+                  : !cardItem.date.isSameDate(nextItem.date);
+
+              return _buildItem(cardItem, isFirst, isLast);
+            },
+          ),
+        )
       ],
     );
   }
-}
 
-Widget _buildYear(YearItem yearItem) {
-  return SliverMainAxisGroup(
-    slivers: [
-      SliverPersistentHeader(
-        pinned: true,
-        delegate: AppSliverPersistentHeaderDelegate(
-          minHeight: 40,
-          maxHeight: 40,
-          child: Container(
-            decoration: boxDecoration,
-            padding: const EdgeInsets.symmetric(horizontal: 16),
-            child: Text(
-              yearItem.year,
-              style: TextStyles.mobileHeading5.copyWith(
-                fontWeight: FontWeight.w800,
-              ),
+  Widget _buildItem(CardItem cardItem, bool isFirst, bool isLast) {
+    final date = cardItem.date;
+    return IntrinsicHeight(
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          SizedBox(
+            width: 60,
+            child: Center(
+              child: isFirst
+                  ? Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 8),
+                      child: Column(
+                        children: [
+                          const VSpacer(12),
+                          Text(
+                            date.day.toString(),
+                            style: TextStyles.mobileMedium,
+                          ),
+                          const VSpacer(4),
+                          FittedBox(
+                            child: Text(
+                              "${DateFormat("MMM").format(date)} • ${DateFormat("yyyy").format(date)}",
+                              style: TextStyles.mobileSmallMedium,
+                            ),
+                          ),
+                          const VSpacer(4),
+                          const Expanded(
+                            child: _TimelineConnector(),
+                          )
+                        ],
+                      ),
+                    )
+                  : isLast
+                      ? CustomPaint(
+                          size: const Size(60, 60),
+                          painter: BottomRightCornerPainter(
+                            strokeWidth: connectorWidth,
+                            color: connectorColor,
+                          ),
+                        )
+                      : const _TimelineConnector(),
             ),
           ),
-        ),
+          _buildCard(cardItem),
+        ],
       ),
-      const SliverToBoxAdapter(
-        child: VSpacer(12),
-      ),
-      SliverPadding(
-        padding: const EdgeInsets.only(bottom: 20),
-        sliver: SliverList.builder(
-          itemCount: yearItem.cards.length,
-          itemBuilder: (context, index) {
-            final cardItem = yearItem.cards[index];
-            final preIndex = max(index - 1, 0);
-            final preItem = yearItem.cards[preIndex];
-            final nextIndex = min(index + 1, yearItem.cards.length - 1);
-            final nextItem = yearItem.cards[nextIndex];
-            final isFirst =
-                index == 0 ? true : !cardItem.date.isSameDate(preItem.date);
-            final isLast = index == yearItem.cards.length - 1
-                ? true
-                : !cardItem.date.isSameDate(nextItem.date);
-
-            return _buildItem(cardItem, isFirst, isLast);
-          },
-        ),
-      )
-    ],
-  );
-}
-
-Widget _buildItem(CardItem cardItem, bool isFirst, bool isLast) {
-  final date = cardItem.date;
-  return IntrinsicHeight(
-    child: Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        SizedBox(
-          width: 60,
-          child: Center(
-            child: isFirst
-                ? Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 8),
-                    child: Column(
-                      children: [
-                        const VSpacer(12),
-                        Text(
-                          date.day.toString(),
-                          style: TextStyles.mobileMedium,
-                        ),
-                        const VSpacer(4),
-                        FittedBox(
-                          child: Text(
-                            "${DateFormat("MMM").format(date)} • ${DateFormat("yyyy").format(date)}",
-                            style: TextStyles.mobileSmallMedium,
-                          ),
-                        ),
-                        const VSpacer(4),
-                        const Expanded(
-                          child: _TimelineConnector(),
-                        )
-                      ],
-                    ),
-                  )
-                : isLast
-                    ? CustomPaint(
-                        size: const Size(60, 60),
-                        painter: BottomRightCornerPainter(
-                          strokeWidth: connectorWidth,
-                          color: connectorColor,
-                        ),
-                      )
-                    : const _TimelineConnector(),
-          ),
-        ),
-        _buildCard(cardItem),
-      ],
-    ),
-  );
+    );
+  }
 }
 
 class _TimelineConnector extends StatelessWidget {

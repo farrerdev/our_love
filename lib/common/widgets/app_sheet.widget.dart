@@ -56,7 +56,7 @@ class AppBottomSheet extends StatelessWidget {
               maxHeight ?? height ?? double.infinity,
               minHeight: minHeight,
             ),
-            decoration: boxDecoration,
+            decoration: bgDecoration,
             child: SafeArea(
               minimum: _minimumSafeArea,
               child: _buildBody(),

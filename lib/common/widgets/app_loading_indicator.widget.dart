@@ -10,9 +10,13 @@ class AppLoadingIndicator extends StatelessWidget {
   Widget build(BuildContext context) {
     return center
         ? const Center(
-            child: CupertinoActivityIndicator(),
+            child: CupertinoActivityIndicator(
+              color: ColorStyles.orange9,
+            ),
           )
-        : const CupertinoActivityIndicator();
+        : const CupertinoActivityIndicator(
+            color: ColorStyles.orange9,
+          );
   }
 }
 

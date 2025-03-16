@@ -25,9 +25,7 @@ class AppFlavor {
         return 'Cleeksy QA';
       case Flavor.DEV:
         return 'Cleeksy Dev';
-      default:
-        return '';
-    }
+      }
   }
 
   static String get iOSVersion {
@@ -40,9 +38,7 @@ class AppFlavor {
         return 'qa.1.2.12';
       case Flavor.DEV:
         return 'dev.1.2.12';
-      default:
-        return '';
-    }
+      }
   }
 
   static String get androidVersion {
@@ -55,9 +51,7 @@ class AppFlavor {
         return 'qa.1.2.12';
       case Flavor.DEV:
         return 'dev.1.2.12';
-      default:
-        return '';
-    }
+      }
   }
 
   static String get apiUrl {
@@ -70,9 +64,7 @@ class AppFlavor {
         return 'https://qa.cleeksy.app/api/';
       case Flavor.DEV:
         return 'https://dev.cleeksy.app/api/';
-      default:
-        return '';
-    }
+      }
   }
 
   static String get host {
@@ -85,9 +77,7 @@ class AppFlavor {
         return 'qa.cleeksy.app';
       case Flavor.DEV:
         return 'dev.cleeksy.app';
-      default:
-        return '';
-    }
+      }
   }
 
   static String get botApiUrl {
@@ -100,9 +90,7 @@ class AppFlavor {
         return '${AppFlavor.apiUrl}/bot';
       case Flavor.DEV:
         return '${AppFlavor.apiUrl}/bot';
-      default:
-        return '';
-    }
+      }
   }
 
   static String get webSocketUrl {
@@ -115,9 +103,7 @@ class AppFlavor {
         return 'wss://ws.qa.cleeksy.app';
       case Flavor.DEV:
         return 'wss://ws.dev.cleeksy.app';
-      default:
-        return '';
-    }
+      }
   }
 
   static String get webUrl {
@@ -130,9 +116,7 @@ class AppFlavor {
         return 'https://qa.cleeksy.app';
       case Flavor.DEV:
         return 'https://dev.cleeksy.app';
-      default:
-        return '';
-    }
+      }
   }
 
   static bool get enableSentry {
@@ -145,9 +129,7 @@ class AppFlavor {
         return false;
       case Flavor.DEV:
         return false;
-      default:
-        return false;
-    }
+      }
   }
 
   static bool get enableOfflineMode {
@@ -161,9 +143,7 @@ class AppFlavor {
         return false;
       case Flavor.DEV:
         return false;
-      default:
-        return false;
-    }
+      }
   }
 
   static String get sentryEnv {
@@ -176,9 +156,7 @@ class AppFlavor {
         return "";
       case Flavor.DEV:
         return "";
-      default:
-        return "";
-    }
+      }
   }
 
   static String get sentryDSN {
@@ -199,8 +177,6 @@ class AppFlavor {
         return "http://14.241.123.2:1001/matomo.php";
       case Flavor.STAGING:
         return "http://14.241.123.2:1001/matomo.php";
-      default:
-        return "";
-    }
+      }
   }
 }

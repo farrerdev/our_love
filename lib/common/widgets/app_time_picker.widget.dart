@@ -1,7 +1,10 @@
-/*
+import 'package:go_router/go_router.dart';
+import 'package:our_love/common/theme/app_colors.dart';
+import 'package:our_love/common/theme/app_texts.dart';
 import 'package:our_love/common/widgets/rounded_button.widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:our_love/modules/memories/presentation/pages/memories.view.dart';
 
 class TimeRange {
   static List<String> hours =
@@ -58,9 +61,10 @@ class _AppTimePickerState extends State<AppTimePicker> {
       _minute = _initTime.minute;
     }
     if (widget.minuteInterval != 1) {
-      if (_minute % widget.minuteInterval != 0)
+      if (_minute % widget.minuteInterval != 0) {
         _minute =
             ((_minute ~/ widget.minuteInterval) + 1) * widget.minuteInterval;
+      }
     }
     if (_minute >= 60) {
       _hour += _minute ~/ 60;
@@ -75,20 +79,36 @@ class _AppTimePickerState extends State<AppTimePicker> {
 
   @override
   Widget build(BuildContext context) {
-    return AppBottomSheet(
+    return Container(
+      decoration: bgDecoration.copyWith(
+        borderRadius: BorderRadius.circular(12),
+      ),
       child: Column(
+        mainAxisSize: MainAxisSize.min,
         children: [
-          BottomSheetHeader(
-            titleText: LocaleKeys.DatePicker_AddTime.tr,
-            action: SaveButton(
-              onPressed: () {
-                Get.back();
-                widget.onSaveTime(TimeOfDay(hour: _hour, minute: _minute));
-              },
-            ),
+          AppBar(
+            title: Text("Time"),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  context.pop();
+                  widget.onSaveTime(TimeOfDay(hour: _hour, minute: _minute));
+                },
+                child: Text("Save"),
+              ),
+            ],
           ),
           SizedBox(
-              height: 150,
+            height: 200,
+            child: CupertinoTheme(
+              data: CupertinoThemeData(
+                textTheme: CupertinoTextThemeData(
+                  dateTimePickerTextStyle: TextStyles.mediumBody1.copyWith(
+                    color: ColorStyles.orange9,
+                    fontSize: 24,
+                  ),
+                ),
+              ),
               child: CupertinoDatePicker(
                 onDateTimeChanged: (DateTime date) {
                   setState(() {
@@ -103,12 +123,14 @@ class _AppTimePickerState extends State<AppTimePicker> {
                 maximumDate: widget.maximumDate,
                 minuteInterval: widget.minuteInterval,
                 mode: CupertinoDatePickerMode.time,
+                backgroundColor: Colors.transparent,
                 use24hFormat: true,
                 initialDateTime: datePicked,
-              )),
+              ),
+            ),
+          ),
         ],
       ),
     );
   }
 }
-*/

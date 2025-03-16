@@ -7,19 +7,38 @@ sealed class HomeEvent extends Equatable {
   List<Object> get props => [];
 }
 
-final class HomeDatePicked extends HomeEvent {
-  const HomeDatePicked({
-    required this.date,
-  });
-
-  final DateTime date;
-
-  @override
-  List<Object> get props => [date];
-}
-
 final class HomeInitialized extends HomeEvent {
   const HomeInitialized();
+
+  @override
+  List<Object> get props => [];
+}
+
+final class HomeEditModeChanged extends HomeEvent {
+  const HomeEditModeChanged();
+
+  @override
+  List<Object> get props => [];
+}
+
+final class HomeAvatarChanged extends HomeEvent {
+  final bool isFirst;
+  final String path;
+
+  const HomeAvatarChanged({
+    required this.isFirst,
+    required this.path,
+  });
+
+  @override
+  List<Object> get props => [];
+}
+final class HomeBgImageChanged extends HomeEvent {
+  final String path;
+
+  const HomeBgImageChanged({
+    required this.path,
+  });
 
   @override
   List<Object> get props => [];

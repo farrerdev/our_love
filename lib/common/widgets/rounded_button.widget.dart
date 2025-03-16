@@ -93,7 +93,7 @@ class RoundedButton extends StatelessWidget {
           elevation: 0,
           disabledBackgroundColor: _disableBackgroundColor,
           disabledForegroundColor: Colors.transparent,
-          foregroundColor: ColorStyles.black5,
+          foregroundColor: ColorStyles.orange5,
           surfaceTintColor: Colors.transparent,
           shadowColor: Colors.transparent,
           backgroundColor: _backgroundColor,
@@ -142,9 +142,9 @@ class RoundedButton extends StatelessWidget {
       case ButtonType.tertiary:
       case ButtonType.primary:
       case ButtonType.secondary:
-        return ColorStyles.black1;
+        return ColorStyles.orange1;
       case ButtonType.custom:
-        return disableBackgroundColor ?? ColorStyles.black1;
+        return disableBackgroundColor ?? ColorStyles.orange1;
     }
   }
 
@@ -164,9 +164,9 @@ class RoundedButton extends StatelessWidget {
       case ButtonType.tertiary:
       case ButtonType.primary:
       case ButtonType.secondary:
-        return ColorStyles.black2;
+        return ColorStyles.orange2;
       case ButtonType.custom:
-        return borderColor ?? ColorStyles.black2;
+        return borderColor ?? ColorStyles.orange2;
     }
   }
 
@@ -192,9 +192,9 @@ class RoundedButton extends StatelessWidget {
         case ButtonType.primary:
         case ButtonType.secondary:
         case ButtonType.tertiary:
-          return ColorStyles.black5;
+          return ColorStyles.black7;
         case ButtonType.custom:
-          return disableTextColor ?? ColorStyles.black5;
+          return disableTextColor ?? ColorStyles.black7;
       }
     }
     //
@@ -246,7 +246,7 @@ class SaveButton extends StatelessWidget {
         padding: EdgeInsets.zero,
         child: Icon(
           Icons.check,
-          color: !disabled ? ColorStyles.white : ColorStyles.black5,
+          color: !disabled ? ColorStyles.white : ColorStyles.orange5,
         ),
         onPressed: () {
           onPressed?.call();

@@ -1,3 +1,4 @@
+// dart format width=80
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
@@ -9,137 +10,26 @@ part of 'login_bloc.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// dart format off
 T _$identity<T>(T value) => value;
-
-final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 /// @nodoc
 mixin _$LoginState {
-  ResponseStatus get submitStatus => throw _privateConstructorUsedError;
-  UserLoginResponseEntity? get userLoginResponse =>
-      throw _privateConstructorUsedError;
+  ResponseStatus get submitStatus;
+  UserLoginResponseEntity? get userLoginResponse;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of LoginState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
   $LoginStateCopyWith<LoginState> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class $LoginStateCopyWith<$Res> {
-  factory $LoginStateCopyWith(
-          LoginState value, $Res Function(LoginState) then) =
-      _$LoginStateCopyWithImpl<$Res, LoginState>;
-  @useResult
-  $Res call(
-      {ResponseStatus submitStatus,
-      UserLoginResponseEntity? userLoginResponse});
-
-  $ResponseStatusCopyWith<$Res> get submitStatus;
-}
-
-/// @nodoc
-class _$LoginStateCopyWithImpl<$Res, $Val extends LoginState>
-    implements $LoginStateCopyWith<$Res> {
-  _$LoginStateCopyWithImpl(this._value, this._then);
-
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? submitStatus = null,
-    Object? userLoginResponse = freezed,
-  }) {
-    return _then(_value.copyWith(
-      submitStatus: null == submitStatus
-          ? _value.submitStatus
-          : submitStatus // ignore: cast_nullable_to_non_nullable
-              as ResponseStatus,
-      userLoginResponse: freezed == userLoginResponse
-          ? _value.userLoginResponse
-          : userLoginResponse // ignore: cast_nullable_to_non_nullable
-              as UserLoginResponseEntity?,
-    ) as $Val);
-  }
-
-  @override
-  @pragma('vm:prefer-inline')
-  $ResponseStatusCopyWith<$Res> get submitStatus {
-    return $ResponseStatusCopyWith<$Res>(_value.submitStatus, (value) {
-      return _then(_value.copyWith(submitStatus: value) as $Val);
-    });
-  }
-}
-
-/// @nodoc
-abstract class _$$LoginStateImplCopyWith<$Res>
-    implements $LoginStateCopyWith<$Res> {
-  factory _$$LoginStateImplCopyWith(
-          _$LoginStateImpl value, $Res Function(_$LoginStateImpl) then) =
-      __$$LoginStateImplCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call(
-      {ResponseStatus submitStatus,
-      UserLoginResponseEntity? userLoginResponse});
-
-  @override
-  $ResponseStatusCopyWith<$Res> get submitStatus;
-}
-
-/// @nodoc
-class __$$LoginStateImplCopyWithImpl<$Res>
-    extends _$LoginStateCopyWithImpl<$Res, _$LoginStateImpl>
-    implements _$$LoginStateImplCopyWith<$Res> {
-  __$$LoginStateImplCopyWithImpl(
-      _$LoginStateImpl _value, $Res Function(_$LoginStateImpl) _then)
-      : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? submitStatus = null,
-    Object? userLoginResponse = freezed,
-  }) {
-    return _then(_$LoginStateImpl(
-      submitStatus: null == submitStatus
-          ? _value.submitStatus
-          : submitStatus // ignore: cast_nullable_to_non_nullable
-              as ResponseStatus,
-      userLoginResponse: freezed == userLoginResponse
-          ? _value.userLoginResponse
-          : userLoginResponse // ignore: cast_nullable_to_non_nullable
-              as UserLoginResponseEntity?,
-    ));
-  }
-}
-
-/// @nodoc
-
-class _$LoginStateImpl implements _LoginState {
-  const _$LoginStateImpl(
-      {this.submitStatus = ResponseStatus.initial, this.userLoginResponse});
-
-  @override
-  @JsonKey()
-  final ResponseStatus submitStatus;
-  @override
-  final UserLoginResponseEntity? userLoginResponse;
-
-  @override
-  String toString() {
-    return 'LoginState(submitStatus: $submitStatus, userLoginResponse: $userLoginResponse)';
-  }
+      _$LoginStateCopyWithImpl<LoginState>(this as LoginState, _$identity);
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$LoginStateImpl &&
+            other is LoginState &&
             (identical(other.submitStatus, submitStatus) ||
                 other.submitStatus == submitStatus) &&
             (identical(other.userLoginResponse, userLoginResponse) ||
@@ -149,108 +39,220 @@ class _$LoginStateImpl implements _LoginState {
   @override
   int get hashCode => Object.hash(runtimeType, submitStatus, userLoginResponse);
 
-  @JsonKey(ignore: true)
   @override
-  @pragma('vm:prefer-inline')
-  _$$LoginStateImplCopyWith<_$LoginStateImpl> get copyWith =>
-      __$$LoginStateImplCopyWithImpl<_$LoginStateImpl>(this, _$identity);
-}
-
-abstract class _LoginState implements LoginState {
-  const factory _LoginState(
-      {final ResponseStatus submitStatus,
-      final UserLoginResponseEntity? userLoginResponse}) = _$LoginStateImpl;
-
-  @override
-  ResponseStatus get submitStatus;
-  @override
-  UserLoginResponseEntity? get userLoginResponse;
-  @override
-  @JsonKey(ignore: true)
-  _$$LoginStateImplCopyWith<_$LoginStateImpl> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-mixin _$ResponseStatus {
-  FormzSubmissionStatus get status => throw _privateConstructorUsedError;
-  String? get message => throw _privateConstructorUsedError;
-
-  @JsonKey(ignore: true)
-  $ResponseStatusCopyWith<ResponseStatus> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class $ResponseStatusCopyWith<$Res> {
-  factory $ResponseStatusCopyWith(
-          ResponseStatus value, $Res Function(ResponseStatus) then) =
-      _$ResponseStatusCopyWithImpl<$Res, ResponseStatus>;
-  @useResult
-  $Res call({FormzSubmissionStatus status, String? message});
-}
-
-/// @nodoc
-class _$ResponseStatusCopyWithImpl<$Res, $Val extends ResponseStatus>
-    implements $ResponseStatusCopyWith<$Res> {
-  _$ResponseStatusCopyWithImpl(this._value, this._then);
-
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? status = null,
-    Object? message = freezed,
-  }) {
-    return _then(_value.copyWith(
-      status: null == status
-          ? _value.status
-          : status // ignore: cast_nullable_to_non_nullable
-              as FormzSubmissionStatus,
-      message: freezed == message
-          ? _value.message
-          : message // ignore: cast_nullable_to_non_nullable
-              as String?,
-    ) as $Val);
+  String toString() {
+    return 'LoginState(submitStatus: $submitStatus, userLoginResponse: $userLoginResponse)';
   }
 }
 
 /// @nodoc
-abstract class _$$ResponseStatusImplCopyWith<$Res>
-    implements $ResponseStatusCopyWith<$Res> {
-  factory _$$ResponseStatusImplCopyWith(_$ResponseStatusImpl value,
-          $Res Function(_$ResponseStatusImpl) then) =
-      __$$ResponseStatusImplCopyWithImpl<$Res>;
+abstract mixin class $LoginStateCopyWith<$Res> {
+  factory $LoginStateCopyWith(
+          LoginState value, $Res Function(LoginState) _then) =
+      _$LoginStateCopyWithImpl;
+  @useResult
+  $Res call(
+      {ResponseStatus submitStatus,
+      UserLoginResponseEntity? userLoginResponse});
+
+  $ResponseStatusCopyWith<$Res> get submitStatus;
+}
+
+/// @nodoc
+class _$LoginStateCopyWithImpl<$Res> implements $LoginStateCopyWith<$Res> {
+  _$LoginStateCopyWithImpl(this._self, this._then);
+
+  final LoginState _self;
+  final $Res Function(LoginState) _then;
+
+  /// Create a copy of LoginState
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
   @override
+  $Res call({
+    Object? submitStatus = null,
+    Object? userLoginResponse = freezed,
+  }) {
+    return _then(_self.copyWith(
+      submitStatus: null == submitStatus
+          ? _self.submitStatus
+          : submitStatus // ignore: cast_nullable_to_non_nullable
+              as ResponseStatus,
+      userLoginResponse: freezed == userLoginResponse
+          ? _self.userLoginResponse
+          : userLoginResponse // ignore: cast_nullable_to_non_nullable
+              as UserLoginResponseEntity?,
+    ));
+  }
+
+  /// Create a copy of LoginState
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $ResponseStatusCopyWith<$Res> get submitStatus {
+    return $ResponseStatusCopyWith<$Res>(_self.submitStatus, (value) {
+      return _then(_self.copyWith(submitStatus: value));
+    });
+  }
+}
+
+/// @nodoc
+
+class _LoginState implements LoginState {
+  const _LoginState(
+      {this.submitStatus = ResponseStatus.initial, this.userLoginResponse});
+
+  @override
+  @JsonKey()
+  final ResponseStatus submitStatus;
+  @override
+  final UserLoginResponseEntity? userLoginResponse;
+
+  /// Create a copy of LoginState
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  _$LoginStateCopyWith<_LoginState> get copyWith =>
+      __$LoginStateCopyWithImpl<_LoginState>(this, _$identity);
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _LoginState &&
+            (identical(other.submitStatus, submitStatus) ||
+                other.submitStatus == submitStatus) &&
+            (identical(other.userLoginResponse, userLoginResponse) ||
+                other.userLoginResponse == userLoginResponse));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, submitStatus, userLoginResponse);
+
+  @override
+  String toString() {
+    return 'LoginState(submitStatus: $submitStatus, userLoginResponse: $userLoginResponse)';
+  }
+}
+
+/// @nodoc
+abstract mixin class _$LoginStateCopyWith<$Res>
+    implements $LoginStateCopyWith<$Res> {
+  factory _$LoginStateCopyWith(
+          _LoginState value, $Res Function(_LoginState) _then) =
+      __$LoginStateCopyWithImpl;
+  @override
+  @useResult
+  $Res call(
+      {ResponseStatus submitStatus,
+      UserLoginResponseEntity? userLoginResponse});
+
+  @override
+  $ResponseStatusCopyWith<$Res> get submitStatus;
+}
+
+/// @nodoc
+class __$LoginStateCopyWithImpl<$Res> implements _$LoginStateCopyWith<$Res> {
+  __$LoginStateCopyWithImpl(this._self, this._then);
+
+  final _LoginState _self;
+  final $Res Function(_LoginState) _then;
+
+  /// Create a copy of LoginState
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $Res call({
+    Object? submitStatus = null,
+    Object? userLoginResponse = freezed,
+  }) {
+    return _then(_LoginState(
+      submitStatus: null == submitStatus
+          ? _self.submitStatus
+          : submitStatus // ignore: cast_nullable_to_non_nullable
+              as ResponseStatus,
+      userLoginResponse: freezed == userLoginResponse
+          ? _self.userLoginResponse
+          : userLoginResponse // ignore: cast_nullable_to_non_nullable
+              as UserLoginResponseEntity?,
+    ));
+  }
+
+  /// Create a copy of LoginState
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $ResponseStatusCopyWith<$Res> get submitStatus {
+    return $ResponseStatusCopyWith<$Res>(_self.submitStatus, (value) {
+      return _then(_self.copyWith(submitStatus: value));
+    });
+  }
+}
+
+/// @nodoc
+mixin _$ResponseStatus {
+  FormzSubmissionStatus get status;
+  String? get message;
+
+  /// Create a copy of ResponseStatus
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  $ResponseStatusCopyWith<ResponseStatus> get copyWith =>
+      _$ResponseStatusCopyWithImpl<ResponseStatus>(
+          this as ResponseStatus, _$identity);
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is ResponseStatus &&
+            (identical(other.status, status) || other.status == status) &&
+            (identical(other.message, message) || other.message == message));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, status, message);
+
+  @override
+  String toString() {
+    return 'ResponseStatus(status: $status, message: $message)';
+  }
+}
+
+/// @nodoc
+abstract mixin class $ResponseStatusCopyWith<$Res> {
+  factory $ResponseStatusCopyWith(
+          ResponseStatus value, $Res Function(ResponseStatus) _then) =
+      _$ResponseStatusCopyWithImpl;
   @useResult
   $Res call({FormzSubmissionStatus status, String? message});
 }
 
 /// @nodoc
-class __$$ResponseStatusImplCopyWithImpl<$Res>
-    extends _$ResponseStatusCopyWithImpl<$Res, _$ResponseStatusImpl>
-    implements _$$ResponseStatusImplCopyWith<$Res> {
-  __$$ResponseStatusImplCopyWithImpl(
-      _$ResponseStatusImpl _value, $Res Function(_$ResponseStatusImpl) _then)
-      : super(_value, _then);
+class _$ResponseStatusCopyWithImpl<$Res>
+    implements $ResponseStatusCopyWith<$Res> {
+  _$ResponseStatusCopyWithImpl(this._self, this._then);
 
+  final ResponseStatus _self;
+  final $Res Function(ResponseStatus) _then;
+
+  /// Create a copy of ResponseStatus
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? status = null,
     Object? message = freezed,
   }) {
-    return _then(_$ResponseStatusImpl(
+    return _then(_self.copyWith(
       status: null == status
-          ? _value.status
+          ? _self.status
           : status // ignore: cast_nullable_to_non_nullable
               as FormzSubmissionStatus,
       message: freezed == message
-          ? _value.message
+          ? _self.message
           : message // ignore: cast_nullable_to_non_nullable
               as String?,
     ));
@@ -259,24 +261,27 @@ class __$$ResponseStatusImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$ResponseStatusImpl implements _ResponseStatus {
-  const _$ResponseStatusImpl({required this.status, this.message});
+class _ResponseStatus implements ResponseStatus {
+  const _ResponseStatus({required this.status, this.message});
 
   @override
   final FormzSubmissionStatus status;
   @override
   final String? message;
 
+  /// Create a copy of ResponseStatus
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  String toString() {
-    return 'ResponseStatus(status: $status, message: $message)';
-  }
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  _$ResponseStatusCopyWith<_ResponseStatus> get copyWith =>
+      __$ResponseStatusCopyWithImpl<_ResponseStatus>(this, _$identity);
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$ResponseStatusImpl &&
+            other is _ResponseStatus &&
             (identical(other.status, status) || other.status == status) &&
             (identical(other.message, message) || other.message == message));
   }
@@ -284,25 +289,50 @@ class _$ResponseStatusImpl implements _ResponseStatus {
   @override
   int get hashCode => Object.hash(runtimeType, status, message);
 
-  @JsonKey(ignore: true)
+  @override
+  String toString() {
+    return 'ResponseStatus(status: $status, message: $message)';
+  }
+}
+
+/// @nodoc
+abstract mixin class _$ResponseStatusCopyWith<$Res>
+    implements $ResponseStatusCopyWith<$Res> {
+  factory _$ResponseStatusCopyWith(
+          _ResponseStatus value, $Res Function(_ResponseStatus) _then) =
+      __$ResponseStatusCopyWithImpl;
+  @override
+  @useResult
+  $Res call({FormzSubmissionStatus status, String? message});
+}
+
+/// @nodoc
+class __$ResponseStatusCopyWithImpl<$Res>
+    implements _$ResponseStatusCopyWith<$Res> {
+  __$ResponseStatusCopyWithImpl(this._self, this._then);
+
+  final _ResponseStatus _self;
+  final $Res Function(_ResponseStatus) _then;
+
+  /// Create a copy of ResponseStatus
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
-  _$$ResponseStatusImplCopyWith<_$ResponseStatusImpl> get copyWith =>
-      __$$ResponseStatusImplCopyWithImpl<_$ResponseStatusImpl>(
-          this, _$identity);
+  $Res call({
+    Object? status = null,
+    Object? message = freezed,
+  }) {
+    return _then(_ResponseStatus(
+      status: null == status
+          ? _self.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as FormzSubmissionStatus,
+      message: freezed == message
+          ? _self.message
+          : message // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ));
+  }
 }
 
-abstract class _ResponseStatus implements ResponseStatus {
-  const factory _ResponseStatus(
-      {required final FormzSubmissionStatus status,
-      final String? message}) = _$ResponseStatusImpl;
-
-  @override
-  FormzSubmissionStatus get status;
-  @override
-  String? get message;
-  @override
-  @JsonKey(ignore: true)
-  _$$ResponseStatusImplCopyWith<_$ResponseStatusImpl> get copyWith =>
-      throw _privateConstructorUsedError;
-}
+// dart format on

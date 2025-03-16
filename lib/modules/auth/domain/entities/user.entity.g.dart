@@ -7,10 +7,10 @@ part of 'user.entity.dart';
 // **************************************************************************
 
 UserEntity _$UserEntityFromJson(Map<String, dynamic> json) => UserEntity(
-      id: json['id'] as int,
+      id: (json['id'] as num).toInt(),
       userName: json['userName'] as String,
       fullName: json['fullName'] as String,
-      defaultTenantId: json['defaultTenantId'] as int?,
+      defaultTenantId: (json['defaultTenantId'] as num?)?.toInt(),
       isAlreadyRequestLicense: json['isAlreadyRequestLicense'] as bool?,
       isTenantManager: json['isTenantManager'] as bool? ?? false,
       isRootTenant: json['isRootTenant'] as bool? ?? false,
@@ -52,7 +52,7 @@ UserLoginResponseEntity _$UserLoginResponseEntityFromJson(
     UserLoginResponseEntity(
       accessToken: json['accessToken'] as String,
       refreshToken: json['refreshToken'] as String,
-      expiresIn: json['expiresIn'] as int,
+      expiresIn: (json['expiresIn'] as num).toInt(),
       homeUrl: json['homeUrl'] as String?,
       imageToken: json['imageToken'] as String?,
       tokenType: json['tokenType'] as String?,

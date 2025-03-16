@@ -10,7 +10,10 @@ import 'package:our_love/generated/assets.gen.dart';
 
 //
 import 'package:flutter/material.dart';
+import 'package:our_love/modules/memories/presentation/pages/memories.view.dart';
 import 'package:syncfusion_flutter_datepicker/datepicker.dart';
+
+import 'app_time_picker.widget.dart';
 
 class AppDatePicker extends StatefulWidget {
   final Function(DateTime?)? onDateSave;
@@ -94,24 +97,19 @@ class _AppDatePickerState extends State<AppDatePicker> {
     return widget.isAlertDialog
         ? AlertDialog(
             insetPadding: const EdgeInsets.all(0),
-            contentPadding: const EdgeInsets.symmetric(
-                horizontal: kHorizontalContentPadding),
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+            contentPadding: const EdgeInsets.all(0),
             content: Material(
+              color: Colors.transparent,
               child: Container(
-                // height: widget.isPickRange ? 520 : 445,
-                // width: 300,
+                padding: const EdgeInsets.all(kHorizontalContentPadding),
                 constraints: BoxConstraints(
                     maxHeight: widget.isPickRange ? 520 : 445,
                     minWidth: 300,
                     maxWidth: 300),
-                color: Colors.white,
+                decoration: bgDecoration.copyWith(
+                    borderRadius: BorderRadius.circular(10)),
                 child: SingleChildScrollView(
-                  child: Padding(
-                    padding: const EdgeInsets.only(bottom: 16),
-                    child: _buildBody(today),
-                  ),
+                  child: _buildBody(today),
                 ),
               ),
             ),
@@ -125,19 +123,14 @@ class _AppDatePickerState extends State<AppDatePicker> {
         _buildCalendar(),
         Column(
           children: [
-            // if (widget.isPickRange) _buildDisplayDateRow(),
-            if (!widget.disablePrevious ||
-                (_endDate != null &&
-                    (_endDate!.isAfter(widget.disablePreviousDate ?? today) ||
-                        _endDate! == (widget.disablePreviousDate ?? today))))
-              // _buildTimePicker(),
-              if (widget.isAlertDialog && widget.hasActionButton)
-                Column(
-                  children: [
-                    const VSpacer(15),
-                    _buildActionButtons(),
-                  ],
-                )
+            _buildTimePicker(),
+            if (widget.isAlertDialog && widget.hasActionButton)
+              Column(
+                children: [
+                  const VSpacer(15),
+                  _buildActionButtons(),
+                ],
+              )
           ],
         ),
       ],
@@ -158,6 +151,7 @@ class _AppDatePickerState extends State<AppDatePicker> {
     }
 
     return SfDateRangePicker(
+      backgroundColor: Colors.transparent,
       controller: controller,
       minDate: minDate,
       initialSelectedDate: _endDate,
@@ -169,15 +163,16 @@ class _AppDatePickerState extends State<AppDatePicker> {
           ? DateRangePickerSelectionMode.range
           : DateRangePickerSelectionMode.single,
       headerStyle: DateRangePickerHeaderStyle(
+          backgroundColor: Colors.transparent,
           textAlign: TextAlign.center,
           textStyle: TextStyles.mediumBody2.copyWith(
-              color: ColorStyles.black10, fontWeight: FontWeight.w700)),
+              color: ColorStyles.orange9, fontWeight: FontWeight.w700)),
       headerHeight: 45,
-      startRangeSelectionColor: ColorStyles.blue7,
-      endRangeSelectionColor: ColorStyles.blue7,
+      startRangeSelectionColor: ColorStyles.orange7,
+      endRangeSelectionColor: ColorStyles.orange7,
       selectionTextStyle: TextStyles.smallCaption.copyWith(color: Colors.white),
       selectionRadius: 14,
-      rangeSelectionColor: ColorStyles.blue3,
+      rangeSelectionColor: ColorStyles.orange3,
       rangeTextStyle: TextStyles.smallCaption.copyWith(color: Colors.white),
       selectableDayPredicate: (DateTime dateTime) {
         if (widget.disableWeekend &&
@@ -188,13 +183,14 @@ class _AppDatePickerState extends State<AppDatePicker> {
         if (widget.disableWeekDays.contains(dateTime.weekday)) return false;
         return true;
       },
-      selectionColor: ColorStyles.blue7,
+      selectionColor: ColorStyles.orange7,
       todayHighlightColor: Colors.transparent,
       monthViewSettings: DateRangePickerMonthViewSettings(
         showTrailingAndLeadingDates: true,
         viewHeaderStyle: DateRangePickerViewHeaderStyle(
-          textStyle: TextStyles.smallSmall.copyWith(color: ColorStyles.black7),
-        ),
+            textStyle:
+                TextStyles.smallSmall.copyWith(color: ColorStyles.orange7),
+            backgroundColor: Colors.transparent),
         weekendDays: widget.disableWeekend ? [6, 7] : [],
         //Locales.vi => 1
         firstDayOfWeek: 1,
@@ -202,30 +198,30 @@ class _AppDatePickerState extends State<AppDatePicker> {
       ),
       monthCellStyle: DateRangePickerMonthCellStyle(
         trailingDatesTextStyle:
-            TextStyles.smallCaption.copyWith(color: ColorStyles.black7),
+            TextStyles.smallCaption.copyWith(color: ColorStyles.orange7),
         leadingDatesTextStyle:
-            TextStyles.smallCaption.copyWith(color: ColorStyles.black7),
+            TextStyles.smallCaption.copyWith(color: ColorStyles.orange7),
         todayCellDecoration: BoxDecoration(
             color: widget.listBlackoutDates
                         .indexWhere((e) => e.isSameDate(DateTime.now())) !=
                     -1
                 ? Colors.transparent
-                : ColorStyles.black3,
+                : ColorStyles.orange3,
             shape: BoxShape.circle),
         todayTextStyle:
-            TextStyles.smallCaption.copyWith(color: ColorStyles.black10),
-        textStyle: TextStyles.smallCaption.copyWith(color: ColorStyles.black10),
+            TextStyles.smallCaption.copyWith(color: ColorStyles.orange9),
+        textStyle: TextStyles.smallCaption.copyWith(color: ColorStyles.orange9),
         blackoutDateTextStyle:
-            TextStyles.smallCaption.copyWith(color: ColorStyles.black3),
+            TextStyles.smallCaption.copyWith(color: ColorStyles.orange3),
         weekendTextStyle:
-            TextStyles.smallCaption.copyWith(color: ColorStyles.black3),
+            TextStyles.smallCaption.copyWith(color: ColorStyles.orange3),
         disabledDatesTextStyle:
-            TextStyles.smallCaption.copyWith(color: ColorStyles.black3),
+            TextStyles.smallCaption.copyWith(color: ColorStyles.orange3),
       ),
       showNavigationArrow: true,
       onSelectionChanged: _onSelectionChanged,
       yearCellStyle: const DateRangePickerYearCellStyle(
-        todayTextStyle: TextStyle(fontSize: 14, color: ColorStyles.blue7),
+        todayTextStyle: TextStyle(fontSize: 14, color: ColorStyles.orange7),
       ),
     );
   }
@@ -293,12 +289,16 @@ class _AppDatePickerState extends State<AppDatePicker> {
               child: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  SvgPicture.asset(Assets.icons.reset),
-                  const HSpacer(12),
+                  SvgPicture.asset(
+                    Assets.icons.reset,
+                    colorFilter:
+                        ColorFilter.mode(ColorStyles.orange9, BlendMode.srcIn),
+                  ),
+                  const HSpacer(8),
                   Text(
                     "Reset",
                     style: TextStyles.mobileSubtitle2.copyWith(
-                      color: ColorStyles.black7,
+                      color: ColorStyles.orange7,
                     ),
                   ),
                 ],
@@ -321,12 +321,13 @@ class _AppDatePickerState extends State<AppDatePicker> {
     );
   }
 
-/*
   Widget _buildTimePicker() {
     return widget.isSelectTime
         ? InkWell(
-            onTap: () => Get.bottomSheet(
-              AppTimePicker(
+            onTap: () => showModalBottomSheet(
+              isScrollControlled: true,
+              context: context,
+              builder: (context) => AppTimePicker(
                 disablePrevious: widget.disablePrevious,
                 dueDate: _endDate!,
                 time: _time,
@@ -345,32 +346,31 @@ class _AppDatePickerState extends State<AppDatePicker> {
               ),
             ),
             child: Container(
-              width: Get.width,
               margin: const EdgeInsets.only(top: 15),
               padding: const EdgeInsets.symmetric(horizontal: 10),
               height: 40,
               decoration: BoxDecoration(
-                  border: Border.all(color: ColorStyles.black3),
+                  border: Border.all(color: ColorStyles.orange7),
                   borderRadius: BorderRadius.circular(6)),
               child: Row(
                 children: [
                   const Icon(
                     Icons.access_time_rounded,
-                    color: ColorStyles.blue7,
+                    color: ColorStyles.orange7,
                     size: 18,
                   ),
                   const SizedBox(width: 10),
                   _time != null
                       ? Text(
                           _time!.format(context),
-                          style: TextStyles.smallCaption.copyWith(
-                              color: ColorStyles.blue7,
+                          style: TextStyles.mediumBody2.copyWith(
+                              color: ColorStyles.orange7,
                               fontWeight: FontWeight.w700),
                         )
                       : Text(
-                          LocaleKeys.DatePicker_AddTime.tr,
-                          style: TextStyles.smallCaption.copyWith(
-                            color: ColorStyles.blue7,
+                          "Add time...",
+                          style: TextStyles.mediumBody2.copyWith(
+                            color: ColorStyles.orange9.withAlpha(100),
                           ),
                         ),
                 ],
@@ -379,7 +379,6 @@ class _AppDatePickerState extends State<AppDatePicker> {
           )
         : const SizedBox();
   }
-*/
 
 /*  Widget _buildDisplayDateRow() {
     return Padding(
@@ -480,33 +479,33 @@ class DisplayDatePicker extends StatelessWidget {
           Container(
             alignment: Alignment.centerLeft,
             padding: const EdgeInsets.symmetric(horizontal: 10),
-            child: date != null
-                ? Text(
-                    date!.format(displayFormat: "dd/M"),
-                    style: TextStyles.mobileBody
-                        .copyWith(color: ColorStyles.black10),
-                  )
-                : Text(
-                    hintText,
-                    style: TextStyles.mobileBody
-                        .copyWith(color: ColorStyles.black5),
-                  ),
             height: 40,
             width: double.infinity,
             decoration: BoxDecoration(
               color: Colors.white,
               border: Border.all(
-                  color: active ? ColorStyles.blue6 : ColorStyles.black3),
+                  color: active ? ColorStyles.orange6 : ColorStyles.orange3),
               borderRadius: BorderRadius.circular(6),
               boxShadow: active
                   ? [
                       const BoxShadow(
-                        color: ColorStyles.blue2,
+                        color: ColorStyles.orange2,
                         spreadRadius: 2,
                       )
                     ]
                   : [],
             ),
+            child: date != null
+                ? Text(
+                    date!.format(displayFormat: "dd/M"),
+                    style: TextStyles.mobileBody
+                        .copyWith(color: ColorStyles.orange9),
+                  )
+                : Text(
+                    hintText,
+                    style: TextStyles.mobileBody
+                        .copyWith(color: ColorStyles.orange5),
+                  ),
           )
         ],
       ),

@@ -53,9 +53,15 @@ class RoundedContainer extends StatelessWidget {
           height: height,
           padding: padding,
           decoration: BoxDecoration(
-            color: color ?? ColorStyles.white.withOpacity(.1),
+            color: color,
             borderRadius: BorderRadius.circular(radius),
             boxShadow: boxShadow,
+            border: borderColor != null
+                ? Border.all(
+                    color: borderColor!,
+                    width: borderWidth,
+                  )
+                : null,
           ),
           child: blurBg
               ? BackdropFilter(

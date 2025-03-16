@@ -21,6 +21,7 @@ ThemeData lightThemeData(BuildContext context) {
     ),
     canvasColor: Colors.transparent,
     focusColor: Colors.transparent,
+    primaryIconTheme: const IconThemeData(color: ColorStyles.orange9, size: 20),
     iconTheme: const IconThemeData(color: ColorStyles.orange9, size: 20),
     appBarTheme: AppBarTheme(
       systemOverlayStyle: SystemUiOverlayStyle.dark,
@@ -31,7 +32,7 @@ ThemeData lightThemeData(BuildContext context) {
       actionsIconTheme:
           const IconThemeData(color: ColorStyles.orange9, size: 20),
       shadowColor: Colors.transparent,
-      surfaceTintColor:  Colors.transparent,
+      surfaceTintColor: Colors.transparent,
       titleTextStyle:
           TextStyles.mobileSubtitle1.copyWith(color: ColorStyles.orange9),
     ),
@@ -39,7 +40,7 @@ ThemeData lightThemeData(BuildContext context) {
       Theme.of(context).textTheme.apply(
             bodyColor: ColorStyles.orange9,
             displayColor: ColorStyles.orange9,
-            decorationColor:ColorStyles.orange9,
+            decorationColor: ColorStyles.orange9,
           ),
     ),
   );

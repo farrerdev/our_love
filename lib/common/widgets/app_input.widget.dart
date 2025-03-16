@@ -112,9 +112,9 @@ class AppInput extends StatefulWidget {
     this.isShowRequiredIcon = false,
     this.scrollController,
     this.autofillHints,
-  })  : focusedBorderColor = focusedBorderColor ?? ColorStyles.blue7,
-        enabledBorderColor = enabledBorderColor ?? ColorStyles.black2,
-        disabledBorderColor = disabledBorderColor ?? ColorStyles.black2,
+  })  : focusedBorderColor = focusedBorderColor ?? ColorStyles.orange9,
+        enabledBorderColor = enabledBorderColor ?? ColorStyles.orange9,
+        disabledBorderColor = disabledBorderColor ?? ColorStyles.orange3,
         super(key: key);
 
   @override
@@ -146,7 +146,7 @@ class _AppInputState extends State<AppInput> {
               EdgeInsets.all(widget.hasKeyboardAction ? 70 : 20),
           textAlign: widget.textAlign,
           textCapitalization: widget.textCapitalization,
-          cursorColor: ColorStyles.black10,
+          cursorColor: ColorStyles.orange9,
           autovalidateMode: widget.autoValidate
               ? AutovalidateMode.always
               : widget.autovalidateMode,
@@ -154,7 +154,7 @@ class _AppInputState extends State<AppInput> {
           focusNode: widget.focusNode,
           onTap: widget.onTap,
           style: widget.style ??
-              TextStyles.mobileBody.copyWith(color: ColorStyles.black10),
+              TextStyles.mobileBody.copyWith(color: ColorStyles.orange9),
           autofocus: widget.autoFocus,
           controller: widget.controller,
           onChanged: (text) {
@@ -184,12 +184,19 @@ class _AppInputState extends State<AppInput> {
             labelText: widget.labelText,
             filled: true,
             fillColor: !widget.enabled
-                ? widget.fillColor ?? ColorStyles.black1
+                ? widget.fillColor ?? ColorStyles.orange1
                 : widget.fillColor ?? Colors.transparent,
             prefixIcon: Padding(
               padding: EdgeInsets.only(
                   right: widget.contentPadding?.left ?? _defaultContentPadding),
-              child: widget.iconPrefix,
+              child: widget.iconPrefix != null
+                  ? Padding(
+                      padding: EdgeInsets.only(
+                          left: widget.contentPadding?.left ??
+                              _defaultContentPadding),
+                      child: widget.iconPrefix,
+                    )
+                  : null,
             ),
             suffixIcon: Padding(
               padding: EdgeInsets.only(
@@ -205,7 +212,7 @@ class _AppInputState extends State<AppInput> {
                           icon: const Icon(
                             CupertinoIcons.clear_circled_solid,
                             size: 18,
-                            color: ColorStyles.black5,
+                            color: ColorStyles.orange5,
                           ),
                         )
                       : const SizedBox.shrink()),
@@ -216,10 +223,14 @@ class _AppInputState extends State<AppInput> {
                 const BoxConstraints(maxHeight: 42),
             hintText: widget.hintText,
             hintStyle: widget.hintStyle ??
-                TextStyles.mobileBody.copyWith(color: ColorStyles.black5),
+                TextStyles.mobileBody.copyWith(
+                  color: ColorStyles.orange7.withAlpha(100),
+                ),
             contentPadding: EdgeInsets.only(
               top: widget.contentPadding?.top ?? _defaultContentPadding,
               bottom: widget.contentPadding?.bottom ?? _defaultContentPadding,
+              right: widget.contentPadding?.right ?? _defaultContentPadding,
+              left: widget.contentPadding?.left ?? _defaultContentPadding,
             ),
             errorBorder: _getInputBorder(
               kBorderErrorColor,
@@ -403,7 +414,7 @@ class AppInputLabel extends StatelessWidget {
       child: RichText(
         text: TextSpan(
           style: TextStyles.mediumBody2.copyWith(
-            color: ColorStyles.black7,
+            color: ColorStyles.orange9,
           ),
           children: [
             TextSpan(

@@ -7,7 +7,7 @@ const kContentColorDarkTheme = Color(0xFFF5FCF9);
 const kErrorColor = ColorStyles.red7;
 const kBorderErrorColor = ColorStyles.red6;
 const kShadowErrorColor = Color(0xFFFFDDD8);
-const kShadowFocusColor = Color(0xFFC3DBFF);
+const kShadowFocusColor = ColorStyles.orange3;
 
 const kPrimaryGreyColor = Color.fromRGBO(105, 109, 119, 1);
 const kPrimaryBlackColor = Color(0xff424242);

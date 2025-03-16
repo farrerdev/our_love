@@ -7,7 +7,7 @@ part 'root_state.dart';
 part 'root_cubit.freezed.dart';
 
 class RootCubit extends Cubit<RootState> {
-  RootCubit() : super(const RootState.initial());
+  RootCubit() : super(RootState.initData());
 
   int currentTab = BottomMenuEnum.home;
 

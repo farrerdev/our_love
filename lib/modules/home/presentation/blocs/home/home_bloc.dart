@@ -4,8 +4,9 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:formz/formz.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:our_love/common/configs/usecase.dart';
 import 'package:our_love/di/di.dart';
-import 'package:our_love/modules/home/domain/entities/vocabulary.entity.dart';
+import 'package:our_love/modules/home/domain/entities/home_data.entity.dart';
 import 'package:our_love/modules/home/domain/use_cases/home.use_case.dart';
 
 part 'home_event.dart';
@@ -17,37 +18,35 @@ part 'home_bloc.freezed.dart';
 class HomeBloc extends Bloc<HomeEvent, HomeState> {
   HomeBloc() : super(HomeState.initData()) {
     on<HomeInitialized>(_onHomeInitialized);
-    on<HomeDatePicked>(_onHomeDatePicked);
+    on<HomeEditModeChanged>(_onHomeEditModeChanged);
+    on<HomeAvatarChanged>(_onHomeAvatarChanged);
+    on<HomeBgImageChanged>(_onHomeBgImageChanged);
     _onInit();
   }
 
-  final GetVocabulariesUseCase _getVocabulariesUseCase = getIt.get();
+  final GetHomeDataUseCase _getHomeDataUseCase = getIt.get();
 
-  FutureOr<void> _onHomeDatePicked(
-    HomeDatePicked event,
+  FutureOr<void> _onHomeEditModeChanged(
+    HomeEditModeChanged event,
     Emitter<HomeState> emit,
   ) async {
-    if (event.date.day == state.currentDate.day) {
-      return;
-    }
+    final newIsEditing = !state.isEditing;
     emit(
-      state.copyWith(currentDate: event.date),
+      state.copyWith(
+        isEditing: newIsEditing,
+        data:  state.initData,
+      ),
     );
-    await _getVocabularies(emit);
   }
 
   FutureOr<void> _onHomeInitialized(
     HomeInitialized event,
     Emitter<HomeState> emit,
   ) async {
-    await _getVocabularies(emit);
-  }
-
-  Future<void> _getVocabularies(Emitter<HomeState> emit) async {
     emit(
       state.copyWith(loadStatus: LoadStatus.loading),
     );
-    final res = await _getVocabulariesUseCase.call(state.currentDate);
+    final res = await _getHomeDataUseCase.call(NoParams());
     res.fold((l) {
       emit(
         state.copyWith(loadStatus: LoadStatus.error),
@@ -56,7 +55,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       emit(
         state.copyWith(
           loadStatus: LoadStatus.success,
-          vocabularies: r,
+          data: r,
         ),
       );
     });
@@ -64,5 +63,28 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
 
   void _onInit() {
     add(const HomeInitialized());
+  }
+
+  FutureOr<void> _onHomeAvatarChanged(
+      HomeAvatarChanged event, Emitter<HomeState> emit) {
+    // emit(
+    //   state.copyWith(
+    //     data: state.data.copyWith(
+    //       firstAvatar: event.isFirst ? event.path : null,
+    //       secondAvatar: event.isFirst ? null : event.path,
+    //     ),
+    //   ),
+    // );
+  }
+
+  FutureOr<void> _onHomeBgImageChanged(
+      HomeBgImageChanged event, Emitter<HomeState> emit) {
+    emit(
+      state.copyWith(
+        data: state.data!.copyWith(
+          bgImagePath: event.path,
+        ),
+      ),
+    );
   }
 }
